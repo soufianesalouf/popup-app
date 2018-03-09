@@ -12,6 +12,7 @@ import WebKit
 class MainVC: UIViewController {
     
     //Outlets
+    @IBOutlet weak var viewToAnimate: GradientView!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var buttomImage: UIImageView!
     @IBOutlet weak var popupView: RoundedShadowView!
@@ -23,6 +24,9 @@ class MainVC: UIViewController {
     var secondTimer: Timer!
     var index = 0
     var enablShowingButtomImage = false
+    var buttomImageIsShowen = false
+    
+    let animator = UIViewPropertyAnimator(duration: 3, curve: .easeInOut)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +36,8 @@ class MainVC: UIViewController {
         popupWebView.load(URLRequest(url: URL(string: FIRST_POPUP_URL)!))
         webView.isUserInteractionEnabled = false
         popupWebView.isUserInteractionEnabled = false
-        firstTimer = Timer.scheduledTimer(timeInterval: TimeInterval(randomNumber(inRange: 10...15)), target: self, selector: #selector(runTimedCodeForButtomImage), userInfo: nil, repeats: true)
-        secondTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(runTimeCodeForFirstPopup), userInfo: nil, repeats: false)
+        
+        secondTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForFirstPopup), userInfo: nil, repeats: false)
     }
     
     public func randomNumber<T : SignedInteger>(inRange range: ClosedRange<T> = 1...6) -> T {
@@ -44,20 +48,34 @@ class MainVC: UIViewController {
     
     @objc func runTimedCodeForButtomImage(){
         if enablShowingButtomImage == true {
-            if buttomImage.isHidden == true {
-                buttomImage.isHidden = false
+            if buttomImageIsShowen == true {
+                buttomImageIsShowen = false
+                animator.addAnimations {
+                    self.buttomImage.center = CGPoint(x: self.buttomImage.bounds.width/2 ,y: self.view.bounds.height + self.buttomImage.bounds.height )
+                }
+                animator.startAnimation()
             } else {
-                buttomImage.isHidden = true
+                buttomImageIsShowen = true
+                animator.addAnimations {
+                    self.buttomImage.center = CGPoint(x: self.buttomImage.bounds.width/2 ,y: self.view.bounds.height - (self.buttomImage.bounds.height / 2) )
+                }
+                animator.startAnimation()
             }
         }
     }
     
     @objc func runTimeCodeForFirstPopup(){
-        popupView.isHidden = false
+        animator.addAnimations {
+            self.popupView.center = CGPoint(x: self.view.bounds.width / 2 ,y: self.view.bounds.height / 2 )
+        }
+        animator.startAnimation()
     }
     
     @objc func runTimeCodeForSecondPopup(){
-        popupView.isHidden = false
+        animator.addAnimations {
+            self.popupView.center = CGPoint(x: self.view.bounds.width / 2 ,y: self.view.bounds.height / 2 )
+        }
+        animator.startAnimation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,14 +86,21 @@ class MainVC: UIViewController {
     @IBAction func closePopupBtnWasPressed(_ sender: Any) {
         if index == 0 {
             index += 1
+            animator.addAnimations {
+                self.popupView.center = CGPoint(x: 600 ,y: self.view.bounds.height / 2 )
+            }
+            animator.startAnimation()
             popupWebView.load(URLRequest(url: URL(string: SECOND_POPUP_URL)!))
-            popupView.isHidden = true
             secondTimer.invalidate()
             secondTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForSecondPopup), userInfo: nil, repeats: false)
         } else {
-            popupView.isHidden = true
+            animator.addAnimations {
+                self.popupView.center = CGPoint(x: -300 ,y: self.view.bounds.height / 2 )
+            }
+            animator.startAnimation()
             secondTimer.invalidate()
             enablShowingButtomImage = true
+            firstTimer = Timer.scheduledTimer(timeInterval: TimeInterval(randomNumber(inRange: 10...15)), target: self, selector: #selector(runTimedCodeForButtomImage), userInfo: nil, repeats: true)
         }
         
     }
