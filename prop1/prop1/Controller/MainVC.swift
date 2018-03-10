@@ -20,9 +20,8 @@ class MainVC: UIViewController {
     @IBOutlet weak var popupWebView: WKWebView!
     
     //var
-    var firstTimer: Timer!
-    var secondTimer: Timer!
-    var index = 0
+    var timer: Timer!
+    var firstPopupClosed = false
     var enablShowingButtomImage = false
     var buttomImageIsShowen = false
     
@@ -30,14 +29,15 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: MAIN_URL)
-        let request = URLRequest(url: url!)
-        webView.load(request)
-        popupWebView.load(URLRequest(url: URL(string: FIRST_POPUP_URL)!))
-        webView.isUserInteractionEnabled = false
-        popupWebView.isUserInteractionEnabled = false
         
-        secondTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForFirstPopup), userInfo: nil, repeats: false)
+        webView.load(URLRequest(url: URL(string: MAIN_URL)!))
+        webView.isUserInteractionEnabled = false
+        
+        popupWebView.load(URLRequest(url: URL(string: FIRST_POPUP_URL)!))
+        popupWebView.isUserInteractionEnabled = false
+        popupWebView.layer.cornerRadius = 10
+        
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForPopup), userInfo: nil, repeats: false)
     }
     
     public func randomNumber<T : SignedInteger>(inRange range: ClosedRange<T> = 1...6) -> T {
@@ -47,62 +47,51 @@ class MainVC: UIViewController {
     }
     
     @objc func runTimedCodeForButtomImage(){
-        if enablShowingButtomImage == true {
-            if buttomImageIsShowen == true {
+        if enablShowingButtomImage {
+            if buttomImageIsShowen {
+                animate(thisView: self.buttomImage, toThePoint: CGPoint(x: self.buttomImage.bounds.width/2 ,y: self.view.bounds.height + self.buttomImage.bounds.height ))
                 buttomImageIsShowen = false
-                animator.addAnimations {
-                    self.buttomImage.center = CGPoint(x: self.buttomImage.bounds.width/2 ,y: self.view.bounds.height + self.buttomImage.bounds.height )
-                }
-                animator.startAnimation()
             } else {
+                animate(thisView: self.buttomImage, toThePoint: CGPoint(x: self.buttomImage.bounds.width/2 ,y: self.view.bounds.height - (self.buttomImage.bounds.height / 2) ))
                 buttomImageIsShowen = true
-                animator.addAnimations {
-                    self.buttomImage.center = CGPoint(x: self.buttomImage.bounds.width/2 ,y: self.view.bounds.height - (self.buttomImage.bounds.height / 2) )
-                }
-                animator.startAnimation()
             }
         }
     }
     
-    @objc func runTimeCodeForFirstPopup(){
-        animator.addAnimations {
-            self.popupView.center = CGPoint(x: self.view.bounds.width / 2 ,y: self.view.bounds.height / 2 )
-        }
-        animator.startAnimation()
+    @objc func runTimeCodeForPopup(){
+        animate(thisView: popupView, toThePoint: CGPoint(x: self.view.bounds.width / 2 ,y: self.view.bounds.height / 2 ))
     }
     
-    @objc func runTimeCodeForSecondPopup(){
+    func animate ( thisView view: UIView, toThePoint point: CGPoint){
         animator.addAnimations {
-            self.popupView.center = CGPoint(x: self.view.bounds.width / 2 ,y: self.view.bounds.height / 2 )
+            view.center = point
         }
         animator.startAnimation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        firstTimer.invalidate()
+        timer.invalidate()
     }
-
+    
     @IBAction func closePopupBtnWasPressed(_ sender: Any) {
-        if index == 0 {
-            index += 1
-            animator.addAnimations {
-                self.popupView.center = CGPoint(x: 600 ,y: self.view.bounds.height / 2 )
-            }
-            animator.startAnimation()
+        if !firstPopupClosed {
+            animate(thisView: popupView, toThePoint: CGPoint(x: 600 ,y: self.view.bounds.height / 2 ))
             popupWebView.load(URLRequest(url: URL(string: SECOND_POPUP_URL)!))
-            secondTimer.invalidate()
-            secondTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForSecondPopup), userInfo: nil, repeats: false)
+            timer.invalidate()
+            timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForPopup), userInfo: nil, repeats: false)
+            firstPopupClosed = true
         } else {
-            animator.addAnimations {
-                self.popupView.center = CGPoint(x: -300 ,y: self.view.bounds.height / 2 )
-            }
-            animator.startAnimation()
-            secondTimer.invalidate()
+            animate(thisView: popupView, toThePoint: CGPoint(x: -300 ,y: self.view.bounds.height / 2 ))
+            timer.invalidate()
+            timer = Timer.scheduledTimer(timeInterval: TimeInterval(randomNumber(inRange: 10...15)), target: self, selector: #selector(runTimedCodeForButtomImage), userInfo: nil, repeats: true)
             enablShowingButtomImage = true
-            firstTimer = Timer.scheduledTimer(timeInterval: TimeInterval(randomNumber(inRange: 10...15)), target: self, selector: #selector(runTimedCodeForButtomImage), userInfo: nil, repeats: true)
         }
         
+    }
+    
+    @IBAction func openPopupUrlBtnWasPressed(_ sender: Any) {
+        UIApplication.shared.open(popupWebView.url!, options: [:], completionHandler: nil)
     }
     
     

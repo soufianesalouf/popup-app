@@ -43,6 +43,12 @@
                                             <wkPreferences key="preferences"/>
                                         </wkWebViewConfiguration>
                                     </wkWebView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXd-96-Hbi">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <connections>
+                                            <action selector="openPopupUrlBtnWasPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="egW-p3-r06"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fI8-dl-vJN">
                                         <rect key="frame" x="270" y="0.0" width="30" height="30"/>
                                         <constraints>
@@ -61,13 +67,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Y63-0j-Dpo" firstAttribute="width" secondItem="zux-4y-jDg" secondAttribute="width" id="1RG-d6-QRV"/>
+                                    <constraint firstItem="nXd-96-Hbi" firstAttribute="height" secondItem="zux-4y-jDg" secondAttribute="height" id="69n-z2-7BF"/>
+                                    <constraint firstAttribute="trailing" secondItem="nXd-96-Hbi" secondAttribute="trailing" id="7et-dh-UIG"/>
                                     <constraint firstItem="Y63-0j-Dpo" firstAttribute="height" secondItem="zux-4y-jDg" secondAttribute="height" id="Dck-K9-eCa"/>
                                     <constraint firstItem="Y63-0j-Dpo" firstAttribute="centerY" secondItem="zux-4y-jDg" secondAttribute="centerY" id="M7I-Sq-Lgj"/>
+                                    <constraint firstItem="nXd-96-Hbi" firstAttribute="top" secondItem="zux-4y-jDg" secondAttribute="top" id="MPJ-RA-KHs"/>
                                     <constraint firstItem="Y63-0j-Dpo" firstAttribute="centerX" secondItem="zux-4y-jDg" secondAttribute="centerX" id="Xoy-Bo-aXS"/>
+                                    <constraint firstAttribute="bottom" secondItem="nXd-96-Hbi" secondAttribute="bottom" id="a2f-z4-doE"/>
                                     <constraint firstItem="fI8-dl-vJN" firstAttribute="top" secondItem="zux-4y-jDg" secondAttribute="top" id="dyb-N1-wIa"/>
                                     <constraint firstAttribute="width" constant="300" id="fiG-6I-wNX"/>
+                                    <constraint firstItem="nXd-96-Hbi" firstAttribute="leading" secondItem="zux-4y-jDg" secondAttribute="leading" id="iMy-k7-aS0"/>
                                     <constraint firstAttribute="trailing" secondItem="fI8-dl-vJN" secondAttribute="trailing" id="mAL-Dn-XKw"/>
                                     <constraint firstAttribute="height" constant="300" id="tS4-9N-L2a"/>
+                                    <constraint firstItem="nXd-96-Hbi" firstAttribute="width" secondItem="Y63-0j-Dpo" secondAttribute="width" id="yZg-Wo-zYp"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtD-3p-LdG" customClass="GradientView" customModule="prop1" customModuleProvider="target">
