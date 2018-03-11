@@ -1,6 +1,6 @@
 //
 //  GradientView.swift
-//  breakpoint
+//  popup-app
 //
 //  Created by Soufiane Salouf on 3/5/18.
 //  Copyright © 2018 Soufiane Salouf. All rights reserved.
