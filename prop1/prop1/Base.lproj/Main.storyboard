@@ -32,8 +32,8 @@
                                     <constraint firstAttribute="height" constant="162" id="afc-eP-Mnp"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zux-4y-jDg" customClass="RoundedShadowView" customModule="prop1" customModuleProvider="target">
-                                <rect key="frame" x="-300" y="183" width="300" height="300"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zux-4y-jDg" customClass="RoundedShadowView" customModule="prop1" customModuleProvider="target">
+                                <rect key="frame" x="37.5" y="183" width="300" height="300"/>
                                 <subviews>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y63-0j-Dpo">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -50,10 +50,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fI8-dl-vJN">
-                                        <rect key="frame" x="270" y="0.0" width="30" height="30"/>
+                                        <rect key="frame" x="260" y="0.0" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="5DK-4G-ww7"/>
-                                            <constraint firstAttribute="width" constant="30" id="7ny-lW-7hc"/>
+                                            <constraint firstAttribute="height" constant="40" id="5DK-4G-ww7"/>
+                                            <constraint firstAttribute="width" constant="40" id="7ny-lW-7hc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
                                         <state key="normal" title="X">
@@ -82,20 +82,15 @@
                                     <constraint firstItem="nXd-96-Hbi" firstAttribute="width" secondItem="Y63-0j-Dpo" secondAttribute="width" id="yZg-Wo-zYp"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtD-3p-LdG" customClass="GradientView" customModule="prop1" customModuleProvider="target">
-                                <rect key="frame" x="-300" y="183" width="300" height="300"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zux-4y-jDg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="41g-AQ-6Qn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="y6X-4o-5Wg" secondAttribute="bottom" constant="-195" id="64S-Fh-0sw"/>
                             <constraint firstItem="oG9-UQ-a6J" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6E5-Gg-yuV"/>
-                            <constraint firstItem="zux-4y-jDg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="-300" id="CUj-VQ-WYw"/>
                             <constraint firstItem="oG9-UQ-a6J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EDg-yf-aqx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oG9-UQ-a6J" secondAttribute="trailing" id="KOW-1z-EBh"/>
+                            <constraint firstItem="zux-4y-jDg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nbb-6Y-CUE"/>
                             <constraint firstItem="y6X-4o-5Wg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hIG-9m-AoB"/>
                             <constraint firstItem="y6X-4o-5Wg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iuh-GS-sOf"/>
                             <constraint firstItem="y6X-4o-5Wg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="msi-Rb-EAA"/>
@@ -108,7 +103,6 @@
                         <outlet property="closePopupBtn" destination="fI8-dl-vJN" id="31l-f7-W9U"/>
                         <outlet property="popupView" destination="zux-4y-jDg" id="ntW-0B-cxS"/>
                         <outlet property="popupWebView" destination="Y63-0j-Dpo" id="u1A-Q4-8Hp"/>
-                        <outlet property="viewToAnimate" destination="wtD-3p-LdG" id="Xnc-5A-nOG"/>
                         <outlet property="webView" destination="oG9-UQ-a6J" id="eVh-xi-UFv"/>
                     </connections>
                 </viewController>

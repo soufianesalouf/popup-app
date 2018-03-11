@@ -1,6 +1,6 @@
 //
 //  RoundedView.swift
-//  breakpoint
+//  popup-app
 //
 //  Created by Soufiane Salouf on 3/5/18.
 //  Copyright © 2018 Soufiane Salouf. All rights reserved.
@@ -21,9 +21,5 @@ class RoundedShadowView: UIView {
         self.layer.shadowColor = UIColor.black.cgColor
         super.awakeFromNib()
     }
-
-//    override func layoutSubviews() {
-//        self.layer.cornerRadius = 14
-//    }
     
 }

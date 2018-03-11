@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  prop1
+//  popup-app
 //
 //  Created by Soufiane Salouf on 3/9/18.
 //  Copyright © 2018 Soufiane Salouf. All rights reserved.

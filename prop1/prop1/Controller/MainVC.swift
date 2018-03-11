@@ -12,7 +12,6 @@ import WebKit
 class MainVC: UIViewController {
     
     //Outlets
-    @IBOutlet weak var viewToAnimate: GradientView!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var buttomImage: UIImageView!
     @IBOutlet weak var popupView: RoundedShadowView!
@@ -25,7 +24,7 @@ class MainVC: UIViewController {
     var enablShowingButtomImage = false
     var buttomImageIsShowen = false
     
-    let animator = UIViewPropertyAnimator(duration: 3, curve: .easeInOut)
+    let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +36,7 @@ class MainVC: UIViewController {
         popupWebView.isUserInteractionEnabled = false
         popupWebView.layer.cornerRadius = 10
         
-        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForPopup), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(runTimeCodeForPopup), userInfo: nil, repeats: false)
     }
     
     public func randomNumber<T : SignedInteger>(inRange range: ClosedRange<T> = 1...6) -> T {
@@ -59,7 +58,7 @@ class MainVC: UIViewController {
     }
     
     @objc func runTimeCodeForPopup(){
-        animate(thisView: popupView, toThePoint: CGPoint(x: self.view.bounds.width / 2 ,y: self.view.bounds.height / 2 ))
+        popupView.isHidden = false
     }
     
     func animate ( thisView view: UIView, toThePoint point: CGPoint){
@@ -76,13 +75,13 @@ class MainVC: UIViewController {
     
     @IBAction func closePopupBtnWasPressed(_ sender: Any) {
         if !firstPopupClosed {
-            animate(thisView: popupView, toThePoint: CGPoint(x: 600 ,y: self.view.bounds.height / 2 ))
+            popupView.isHidden = true
             popupWebView.load(URLRequest(url: URL(string: SECOND_POPUP_URL)!))
             timer.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(runTimeCodeForPopup), userInfo: nil, repeats: false)
             firstPopupClosed = true
         } else {
-            animate(thisView: popupView, toThePoint: CGPoint(x: -300 ,y: self.view.bounds.height / 2 ))
+            popupView.isHidden = true
             timer.invalidate()
             timer = Timer.scheduledTimer(timeInterval: TimeInterval(randomNumber(inRange: 10...15)), target: self, selector: #selector(runTimedCodeForButtomImage), userInfo: nil, repeats: true)
             enablShowingButtomImage = true
